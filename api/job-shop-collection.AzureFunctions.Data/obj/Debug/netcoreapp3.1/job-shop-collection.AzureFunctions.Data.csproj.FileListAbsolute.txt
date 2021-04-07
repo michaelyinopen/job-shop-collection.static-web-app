@@ -1,0 +1,9 @@
+C:\Users\michael\source\repos\job-shop-collection.static-web-app\api\job-shop-collection.AzureFunctions.Data\bin\Debug\netcoreapp3.1\job-shop-collection.AzureFunctions.Data.deps.json
+C:\Users\michael\source\repos\job-shop-collection.static-web-app\api\job-shop-collection.AzureFunctions.Data\bin\Debug\netcoreapp3.1\job-shop-collection.AzureFunctions.Data.dll
+C:\Users\michael\source\repos\job-shop-collection.static-web-app\api\job-shop-collection.AzureFunctions.Data\bin\Debug\netcoreapp3.1\job-shop-collection.AzureFunctions.Data.pdb
+C:\Users\michael\source\repos\job-shop-collection.static-web-app\api\job-shop-collection.AzureFunctions.Data\obj\Debug\netcoreapp3.1\job-shop-collection.AzureFunctions.Data.csprojAssemblyReference.cache
+C:\Users\michael\source\repos\job-shop-collection.static-web-app\api\job-shop-collection.AzureFunctions.Data\obj\Debug\netcoreapp3.1\job-shop-collection.AzureFunctions.Data.AssemblyInfoInputs.cache
+C:\Users\michael\source\repos\job-shop-collection.static-web-app\api\job-shop-collection.AzureFunctions.Data\obj\Debug\netcoreapp3.1\job-shop-collection.AzureFunctions.Data.AssemblyInfo.cs
+C:\Users\michael\source\repos\job-shop-collection.static-web-app\api\job-shop-collection.AzureFunctions.Data\obj\Debug\netcoreapp3.1\job-shop-collection.AzureFunctions.Data.csproj.CoreCompileInputs.cache
+C:\Users\michael\source\repos\job-shop-collection.static-web-app\api\job-shop-collection.AzureFunctions.Data\obj\Debug\netcoreapp3.1\job-shop-collection.AzureFunctions.Data.dll
+C:\Users\michael\source\repos\job-shop-collection.static-web-app\api\job-shop-collection.AzureFunctions.Data\obj\Debug\netcoreapp3.1\job-shop-collection.AzureFunctions.Data.pdb
