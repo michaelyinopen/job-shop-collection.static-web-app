@@ -20,16 +20,16 @@ namespace job_shop_collection.AzureFunctions
 {
     public class GetAllJobSets
     {
-        //private readonly JobShopCollectionDbContext _jobShopCollectionDbContext;
-        //private readonly IMapper _mapper;
+        private readonly JobShopCollectionDbContext _jobShopCollectionDbContext;
+        private readonly IMapper _mapper;
 
-        //public GetAllJobSets(
-        //    JobShopCollectionDbContext jobShopCollectionDbContext,
-        //    IMapper mapper)
-        //{
-        //    _jobShopCollectionDbContext = jobShopCollectionDbContext;
-        //    _mapper = mapper;
-        //}
+        public GetAllJobSets(
+            JobShopCollectionDbContext jobShopCollectionDbContext,
+            IMapper mapper)
+        {
+            _jobShopCollectionDbContext = jobShopCollectionDbContext;
+            _mapper = mapper;
+        }
 
         [FunctionName("GetAllJobSets")]
         [OpenApiOperation(operationId: "Run", tags: new[] { "name" })]
@@ -42,37 +42,32 @@ namespace job_shop_collection.AzureFunctions
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processing request GetAllJobSets.");
-            return new OkObjectResult(new JobSetHeadersDto
+
+            int? pageToken = int.TryParse(req.Query["pageToken"], out int pageTokenResult) ? pageTokenResult : default(int?);
+
+            int limitDefault = 100;
+            int limit = int.TryParse(req.Query["limit"], out int limitResult) ? limitResult : limitDefault;
+
+            IQueryable<JobSet> dataQuery = _jobShopCollectionDbContext.JobSet;
+            if (pageToken.HasValue)
             {
-                Data = new System.Collections.Generic.List<JobSetHeaderDto>(),
-                NextPageToken = null
-            });
+                dataQuery = dataQuery.Where(j => j.Id < pageToken);
+            }
+            var data = await dataQuery
+                .OrderByDescending(j => j.Id)
+                .Take(limit)
+                .ProjectTo<JobSetHeaderDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
 
-            //int? pageToken = int.TryParse(req.Query["pageToken"], out int pageTokenResult) ? pageTokenResult : default(int?);
+            int? nextPageToken = data.Count == limit ? data[^1].Id : default(int?);
 
-            //int limitDefault = 100;
-            //int limit = int.TryParse(req.Query["limit"], out int limitResult) ? limitResult : limitDefault;
+            var result = new JobSetHeadersDto
+            {
+                Data = data,
+                NextPageToken = nextPageToken
+            };
 
-            //IQueryable<JobSet> dataQuery = _jobShopCollectionDbContext.JobSet;
-            //if (pageToken.HasValue)
-            //{
-            //    dataQuery = dataQuery.Where(j => j.Id < pageToken);
-            //}
-            //var data = await dataQuery
-            //    .OrderByDescending(j => j.Id)
-            //    .Take(limit)
-            //    .ProjectTo<JobSetHeaderDto>(_mapper.ConfigurationProvider)
-            //    .ToListAsync();
-
-            //int? nextPageToken = data.Count == limit ? data[^1].Id : default(int?);
-
-            //var result = new JobSetHeadersDto
-            //{
-            //    Data = data,
-            //    NextPageToken = nextPageToken
-            //};
-
-            //return new OkObjectResult(result);
+            return new OkObjectResult(result);
         }
     }
 }
